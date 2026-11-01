@@ -1,0 +1,9 @@
+{
+  "name": "app-platewise-collector",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.22.1 <23" },
+  "scripts": { "build": "tsc", "test": "npm run build && node --test tests/*.test.mjs", "collect:mock": "npm run build && node dist/index.js" },
+  "devDependencies": { "@types/node": "^22.0.0", "typescript": "~5.9.0" }
+}
