@@ -36,3 +36,5 @@ Flipp is an unofficial source and its terms and authorization have not been esta
 ## Mock data and tests
 
 Run `npm run collect:mock` for synthetic data or `npm test` to compile and run tests. The separate mock normalizer rejects missing or malformed expiry dates and compares date-only expiry against Calgary's local calendar day; the live search preserves source timestamps and does not assert validity.
+
+`npm run upload:mock` generates and uploads a synthetic offer to the PlateWise API. Set `PLATEWISE_API_URL` and `INGEST_TOKEN` in the execution environment first; the token must be provisioned securely and never committed or added to frontend configuration. HTTP is allowed only for localhost. The uploader rejects non-mock providers, and no schedule is configured. Authorized real sources need a separate reviewed integration before recurring ingestion can be enabled.
