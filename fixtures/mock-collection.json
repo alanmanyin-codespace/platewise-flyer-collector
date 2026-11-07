@@ -1,0 +1,186 @@
+{
+  "provider": "mock",
+  "postalCode": "T3A 1B1",
+  "queries": [
+    "milk",
+    "eggs",
+    "chicken breast",
+    "rice",
+    "broccoli",
+    "apples",
+    "ham"
+  ],
+  "collectedAt": "2026-11-03T05:00:00.000Z",
+  "offers": [
+    {
+      "id": "mock-1001",
+      "productName": "Large Eggs 12pk",
+      "retailer": "Example Grocer",
+      "price": 3.99,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": "ea",
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "eggs"
+      ]
+    },
+    {
+      "id": "mock-1002",
+      "productName": "2% Milk 4 L",
+      "retailer": "Example Grocer",
+      "price": 12,
+      "regularPrice": null,
+      "pricePrefix": "2/",
+      "priceSuffix": "OR $6.58 each",
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "milk"
+      ]
+    },
+    {
+      "id": "mock-1003",
+      "productName": "Gala Apples",
+      "retailer": "Sample Market",
+      "price": 1.99,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": "/lb",
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "apples"
+      ]
+    },
+    {
+      "id": "mock-1004",
+      "productName": "Basmati Rice, 8 KG",
+      "retailer": "Sample Market",
+      "price": 14.99,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": null,
+      "saleDescription": "300 points when you buy 2",
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "rice"
+      ]
+    },
+    {
+      "id": "mock-1005",
+      "productName": "BASMATI RICE 8 KG",
+      "retailer": "Sample Market",
+      "price": 14.99,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": null,
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-12T04:59:59+00:00",
+      "flyerId": "900002",
+      "imageUrl": null,
+      "matchedQueries": [
+        "rice"
+      ]
+    },
+    {
+      "id": "mock-1006",
+      "productName": "Boneless Skinless Chicken Breasts",
+      "retailer": "Corner Foods",
+      "price": 17.99,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": null,
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "chicken breast"
+      ]
+    },
+    {
+      "id": "mock-1007",
+      "productName": "Boneless Skinless Chicken Breasts",
+      "retailer": "Corner Foods",
+      "price": 34.99,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": null,
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "chicken breast"
+      ]
+    },
+    {
+      "id": "mock-1008",
+      "productName": "Ben's Sample Express Rice",
+      "retailer": "Corner Foods",
+      "price": 9,
+      "regularPrice": null,
+      "pricePrefix": "3 for",
+      "priceSuffix": null,
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "rice"
+      ]
+    },
+    {
+      "id": "mock-1009",
+      "productName": "Deli Ham",
+      "retailer": "Example Grocer",
+      "price": 2.49,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": "/100 g",
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "ham"
+      ]
+    },
+    {
+      "id": "mock-1010",
+      "productName": "Broccoli Crowns",
+      "retailer": "Example Grocer",
+      "price": null,
+      "regularPrice": null,
+      "pricePrefix": null,
+      "priceSuffix": null,
+      "saleDescription": null,
+      "validFrom": "2026-10-29T07:00:00+00:00",
+      "validUntil": "2026-11-05T04:59:59+00:00",
+      "flyerId": "900001",
+      "imageUrl": null,
+      "matchedQueries": [
+        "broccoli"
+      ]
+    }
+  ]
+}
