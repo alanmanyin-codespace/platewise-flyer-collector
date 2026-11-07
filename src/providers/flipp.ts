@@ -26,7 +26,7 @@ export async function searchFlipp(postal: string, query: string, limit: number, 
   url.searchParams.set("locale", "en-ca");
   url.searchParams.set("q", query.trim());
   const response = await request(url, { headers: { Accept: "application/json" }, signal: AbortSignal.timeout(15000) });
-  if (!response.ok) throw new Error(`Flipp request failed (HTTP ${response.status}).`);
+  if (!response.ok) throw Object.assign(new Error(`Flipp request failed (HTTP ${response.status}).`), { status: response.status });
   const data: unknown = await response.json();
   if (!data || typeof data !== "object" || !Array.isArray((data as Record<string, unknown>).items)) throw new Error("Unexpected Flipp response: missing items array.");
   const rows = (data as { items: unknown[] }).items;

@@ -21,13 +21,13 @@ cp config/items.json my-items.json
 npm run collect -- --postal "T2P 1J9" --items-file ./my-items.json --limit 5
 ```
 
-The file must be a JSON array containing 1–20 non-empty strings, for example:
+The file must be a JSON array containing 1–1000 non-empty strings, for example:
 
 ```json
 ["milk", "eggs", "chicken breast", "rice", "broccoli"]
 ```
 
-Each distinct query makes one request, sequentially. A batch stops on the first error and does not return partial results. At most 20 queries are accepted. Offers with the same source ID are deduplicated, with matching queries listed in `matchedQueries`; offers without IDs are kept separately. `--limit` is optional (default 20, maximum 100), applies per query, and limits output locally rather than the number of upstream records. Search results are not a complete inventory of flyers or products. Empty or unknown fields are `null`; a price does not by itself establish the offer is current, available, or applicable to a particular quantity.
+Each distinct query makes one request, sequentially. A batch stops on the first error and does not return partial results. At most 1000 queries are accepted. `config/items-all.json` lists every recipe ingredient, most-used first; pass it with `--items-file ./config/items-all.json`. It is not the default because a Calgary run with it makes about 5,600 requests. Offers with the same source ID are deduplicated, with matching queries listed in `matchedQueries`; offers without IDs are kept separately. `--limit` is optional (default 20, maximum 100), applies per query, and limits output locally rather than the number of upstream records. Search results are not a complete inventory of flyers or products. Empty or unknown fields are `null`; a price does not by itself establish the offer is current, available, or applicable to a particular quantity.
 
 Each successful run saves JSON to a new file in `data/`, with the postal code, UTC collection timestamp and a unique ID in its name (for example, `offers-T2P1J9-2026-10-31T17-30-45-123Z-<id>.json`), and prints the full path. A failed batch leaves earlier files intact. The `data/` directory is ignored by Git.
 
@@ -36,6 +36,16 @@ Flipp is an unofficial source and its terms and authorization have not been esta
 ## Market search
 
 `npm run collect -- --market calgary --limit 100` searches every postal code listed for that market in `config/markets.json` and saves one merged collection named `offers-calgary-<timestamp>-<id>.json`. Items are merged by source ID, and `seenIn` records which postal codes returned each one. Each query makes one request per postal code, so the Calgary list of 6 with 5 queries makes 30 requests. Any failure stops the whole market and saves nothing. A market is a sample of its area, not a guarantee of complete coverage. The Flipp limits above apply: run it manually only.
+
+### Large searches in series
+
+Add `--series-size` to split a market search into stages:
+
+```sh
+npm run collect -- --market calgary --items-file ./config/items-all.json --limit 100 --series-size 500
+```
+
+Each run makes up to that many requests, waiting `--delay-ms` (default 1000) between them, then stops. Run the same command again to continue. Each result is saved to `data/job-<market>-<id>.jsonl` as it arrives, so a crash loses at most one request. Network errors, HTTP 429 and server errors are retried up to 3 times with growing waits; a request that still fails is run again in the next series. Five failed requests in a row stop the series. The merged collection is saved and the job file removed only when every request has finished. Changing the market, items or limit starts a separate job.
 
 ## Mock data and tests
 
@@ -64,3 +74,9 @@ Mapping rules:
 Market collections upload as market runs: the run carries `market`, each offer carries `seenIn`, and the API stores the market as the location. A product with two prices is only detected within one run part.
 
 The API groups observations by retailer and product name to keep one current offer per product and its price history.
+
+## Recipe import
+
+`npm run import:recipes` stores TheMealDB recipes through the PlateWise API, using the same `PLATEWISE_API_URL` and `INGEST_TOKEN`. It lists the catalogue by category, then fetches only recipes not yet stored, so running it monthly picks up new ones. Add `-- --refresh` to re-fetch everything and pick up edits; do this occasionally, as it makes about one request per recipe. If an import fails, rerun it to continue.
+
+`THEMEALDB_KEY` defaults to the free development key `1`. TheMealDB requires a paid key before releasing publicly on an app store. Copy content through the official API only, do not scrape the site, and link back for artwork where appropriate. No schedule is configured.

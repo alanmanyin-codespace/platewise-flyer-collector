@@ -10,8 +10,8 @@ export async function readQueries(path: string | URL): Promise<string[]> {
   let data: unknown;
   try { data = JSON.parse(text); }
   catch { throw new Error("Query file must contain valid JSON."); }
-  if (!Array.isArray(data) || data.length === 0 || data.length > 20 || data.some(item => typeof item !== "string" || !item.trim())) {
-    throw new Error("Query file must contain an array of 1–20 non-empty strings.");
+  if (!Array.isArray(data) || data.length === 0 || data.length > 1000 || data.some(item => typeof item !== "string" || !item.trim())) {
+    throw new Error("Query file must contain an array of 1–1000 non-empty strings.");
   }
   return [...new Set((data as string[]).map(item => item.trim().toLowerCase()))];
 }

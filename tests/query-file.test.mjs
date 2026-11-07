@@ -21,9 +21,9 @@ test("rejects missing files, malformed JSON and empty or invalid lists", async (
     await assert.rejects(readQueries(file), /file not found.*omit --items-file/i);
     await writeFile(file, "not json");
     await assert.rejects(readQueries(file), /JSON/i);
-    for (const value of [[], ["milk", " "], {items: ["milk"]}, Array(21).fill("milk")]) {
+    for (const value of [[], ["milk", " "], {items: ["milk"]}, Array(1001).fill("milk")]) {
       await writeFile(file, JSON.stringify(value));
-      await assert.rejects(readQueries(file), /1–20/);
+      await assert.rejects(readQueries(file), /1–1000/);
     }
   } finally { await rm(dir, {recursive: true, force: true}); }
 });

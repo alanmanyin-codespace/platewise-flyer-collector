@@ -12,7 +12,8 @@
     "collect:mock": "npm run build && node dist/index.js",
     "upload:mock": "npm run build && node dist/upload-mock.js",
     "collect": "npm run build --silent && node dist/cli.js",
-    "upload:run": "npm run build --silent && node dist/upload-run.js"
+    "upload:run": "npm run build --silent && node dist/upload-run.js",
+    "import:recipes": "npm run build --silent && node dist/import-recipes.js"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
