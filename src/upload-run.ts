@@ -5,7 +5,7 @@ import { uploadRun } from "./upload.js";
 const usage = `Usage: npm run upload:run -- --file ./data/<collection>.json [--dry-run]
 
 Maps a saved collection to version 1 run payloads and uploads them to POST /v1/ingest/runs.
---dry-run prints the mapped runs without network access. Uploading requires PLATEWISE_API_URL and INGEST_TOKEN, and only synthetic mock collections are accepted.`;
+--dry-run prints the mapped runs without network access. Uploading requires PLATEWISE_API_URL and INGEST_TOKEN, and mock and Flipp collections are accepted.`;
 
 try {
   const args = process.argv.slice(2);

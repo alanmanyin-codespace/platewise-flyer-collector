@@ -74,7 +74,15 @@ test('local dates follow the postal code time zone', () => {
   assert.equal(localDate('soon', 'T3A 1B1'), undefined);
 });
 
-test('refuses to upload runs that are not synthetic', async () => {
+test('uploads Flipp runs as real data and refuses unknown sources', async () => {
   const [run] = buildRuns(collection([offer('1')], { provider: 'flipp' }));
-  await assert.rejects(() => uploadRun('http://localhost:8787', 'secret', run), /synthetic/);
+  assert.equal(run.run.isSample, false);
+  assert.equal(run.offers[0].isSample, false);
+  let sent;
+  const request = async (url, init) => { sent = [String(url), JSON.parse(init.body).run.source]; return new Response(JSON.stringify({ status: 'created', accepted: 1 }), { status: 201 }); };
+  await uploadRun('http://localhost:8787', 'secret', run, request);
+  assert.deepEqual(sent, ['http://localhost:8787/v1/ingest/runs', 'flipp']);
+  const [other] = buildRuns(collection([offer('1')], { provider: 'other' }));
+  await assert.rejects(() => uploadRun('http://localhost:8787', 'secret', other), /supported/);
+  await assert.rejects(() => uploadRun('http://localhost:8787', 'secret', { ...run, run: { ...run.run, isSample: true } }), /supported/);
 });

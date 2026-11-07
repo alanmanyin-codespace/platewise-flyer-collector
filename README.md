@@ -31,7 +31,7 @@ Each distinct query makes one request, sequentially. A batch stops on the first 
 
 Each successful run saves JSON to a new file in `data/`, with the postal code, UTC collection timestamp and a unique ID in its name (for example, `offers-T2P1J9-2026-10-31T17-30-45-123Z-<id>.json`), and prints the full path. A failed batch leaves earlier files intact. The `data/` directory is ignored by Git.
 
-Flipp is an unofficial source and its terms and authorization have not been established. Use this adapter for explicitly invoked, limited local tests only. Do not schedule Flipp collection or publish its data without confirming authorization. No scheduler is included, and the uploaders refuse Flipp collections. The upstream interface can change without notice.
+Flipp is an unofficial source and its terms and authorization have not been established. Use this adapter for explicitly invoked, limited local tests only. Do not schedule Flipp collection or publish its data without confirming authorization. No scheduler is included. `npm run upload:run` can store Flipp collections when the API allows them; this does not publish them. The upstream interface can change without notice.
 
 ## Market search
 
@@ -45,7 +45,7 @@ Run `npm run collect:mock` for synthetic data or `npm test` to compile and run t
 
 ## Run upload (API schema version 1)
 
-`npm run upload:run -- --file <collection.json>` maps a saved collection to the PlateWise API run contract and posts it to `POST /v1/ingest/runs`. Set `PLATEWISE_API_URL` and `INGEST_TOKEN` first. Only synthetic `mock` collections are uploaded; add `--dry-run` to map any collection, including a Flipp one, and print a summary without network access.
+`npm run upload:run -- --file <collection.json>` maps a saved collection to the PlateWise API run contract and posts it to `POST /v1/ingest/runs`. Set `PLATEWISE_API_URL` and `INGEST_TOKEN` first. Mock and Flipp collections are accepted; Flipp runs are labelled as real data and need `ALLOW_LICENSED_IMPORTS` enabled on the API. Add `--dry-run` to print a summary without network access.
 
 `fixtures/mock-collection.json` is a synthetic collection shaped like Flipp output (multi-buy, per-weight and missing prices, repeated listings, UTC timestamps) for end-to-end tests:
 

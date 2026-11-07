@@ -21,7 +21,8 @@ export async function uploadOffers(baseUrl: string, token: string, offers: Pick<
 
 // Uploads one run. 201 = stored, 200 = identical retry already stored, 409 = run ID reused with different data.
 export async function uploadRun(baseUrl: string, token: string, payload: RunPayload, request: typeof fetch = fetch): Promise<{ status: 'created' | 'replayed'; accepted: number }> {
-  if (payload.run.source !== 'mock' || payload.run.isSample !== true || payload.offers.some(o => o.isSample !== true)) throw new Error('Only synthetic mock runs can be uploaded.');
+  const isSample = payload.run.source === 'mock';
+  if (!['mock', 'flipp'].includes(payload.run.source) || payload.run.isSample !== isSample || payload.offers.some(o => o.isSample !== isSample)) throw new Error('Only correctly labelled mock or Flipp runs are supported.');
   const url = endpoint(baseUrl, '/v1/ingest/runs', token);
   const body = JSON.stringify(payload);
   if (new TextEncoder().encode(body).byteLength > MAX_BYTES) throw new Error(`Run ${payload.run.id} is larger than ${MAX_BYTES} bytes.`);
